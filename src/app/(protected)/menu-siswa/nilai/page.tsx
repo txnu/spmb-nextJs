@@ -1,11 +1,20 @@
 /** @format */
+"use client";
 
-export default function NilaiSiswaPage() {
+import { useNilai } from "@/presentation/hooks/useNilai";
+import { nilaiColumns } from "@/presentation/layouts/table/columns/nilai.column";
+import { DataTable } from "@/presentation/layouts/table/Table";
+
+export default function NilaiPage() {
+  const { nilai } = useNilai();
   return (
-    <div>
-      <div>
-        <h5>Halaman Nilai Siswa</h5>
-      </div>
+    <div className='flex overflow-auto w-full'>
+      {" "}
+      <DataTable
+        columns={nilaiColumns}
+        data={nilai}
+        pageSize={12}
+      />
     </div>
   );
 }

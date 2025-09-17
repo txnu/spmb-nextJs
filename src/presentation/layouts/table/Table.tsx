@@ -6,6 +6,7 @@ import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
+  FilterFn,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -15,6 +16,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
+import { rankItem } from "@tanstack/match-sorter-utils";
 import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -59,6 +61,13 @@ export function DataTable<TData>({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+    // RankItem biar pencarian lebih fleksibel
+    const itemRank = rankItem(row.getValue(columnId), value);
+    addMeta({ itemRank });
+    return itemRank.passed;
+  };
+
   const table = useReactTable({
     data,
     columns,
@@ -67,6 +76,9 @@ export function DataTable<TData>({
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -91,7 +103,7 @@ export function DataTable<TData>({
   return (
     <div className='bg-gray-50 rounded-lg overflow-hidden min-w-full'>
       <div className='w-full px-4 py-3'>
-        <div className='flex justify-between items-center py-4'>
+        <div className='flex justify-between items-center py-4 gap-2'>
           <Input
             placeholder='Cari...'
             value={globalFilter ?? ""}

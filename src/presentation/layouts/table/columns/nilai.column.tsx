@@ -4,7 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { KelasEntity } from "@/domain/entities/kelas.entity";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,11 +12,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { AbsensiEntity } from "@/domain/entities/absensi.entity";
 import { SiswaEntity } from "@/domain/entities/siswa.entity";
 import { PelajaranEntity } from "@/domain/entities/pelajaran.entity";
+import { KelasEntity } from "@/domain/entities/kelas.entity";
+import { NilaiEntity } from "@/domain/entities/nilai.entity";
 
-export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
+export const nilaiColumns: ColumnDef<NilaiEntity>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -47,7 +47,7 @@ export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          ID Absensi
+          ID Nilai
           <ArrowUpDown />
         </Button>
       );
@@ -75,6 +75,30 @@ export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
     },
   },
   {
+    accessorKey: "nilai",
+    header: "Nilai",
+    cell: ({ row }) => (
+      <div className='capitalize'>{row.getValue("nilai")}</div>
+    ),
+  },
+  {
+    accessorKey: "kelas",
+    accessorFn: (row) => row.kelas[0]?.nama_kelas ?? "",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Kelas
+          <ArrowUpDown />
+        </Button>
+      );
+    },
+    cell: ({ getValue }) => {
+      return <div className=''>{getValue<string>()}</div>;
+    },
+  },
+  {
     accessorKey: "pelajaran",
     accessorFn: (row) => row.pelajaran[0]?.mata_pelajaran ?? "",
     header: ({ column }) => {
@@ -89,24 +113,6 @@ export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
     },
     cell: ({ getValue }) => {
       return <div className=''>{getValue<string>()}</div>;
-    },
-  },
-  {
-    accessorKey: "waktu",
-    header: "Waktu",
-    cell: ({ row }) => {
-      const raw = row.getValue("waktu") as string;
-      const date = new Date(raw);
-
-      const formatted = date.toLocaleString("id-ID", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-
-      return <div className='capitalize'>{formatted}</div>;
     },
   },
   {
