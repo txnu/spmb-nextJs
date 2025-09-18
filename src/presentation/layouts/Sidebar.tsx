@@ -131,13 +131,27 @@ export default function Sidebar() {
             </AnimatePresence>
 
             <hr className='text-gray-500 my-2' />
-            <li className='flex gap-4 py-2 px-4 rounded-lg hover:bg-blue-600 cursor-pointer'>
-              <CircleUser size={20} />
-              <span>Pegawai</span>
+            <li>
+              <Link
+                href='/pegawai'
+                className={`flex gap-4 py-2 px-4 rounded-lg hover:bg-white/75 hover:text-black cursor-pointer ${
+                  pathname === "/pegawai" ? "bg-white/75 text-black" : ""
+                }`}>
+                <CircleUser size={20} />
+                <span>Pegawai</span>
+              </Link>
             </li>
-            <li className='flex gap-4 py-2 px-4 rounded-lg hover:bg-blue-600 cursor-pointer'>
-              <Grid2X2Plus size={20} />
-              <span>Absensi Pegawai</span>
+            <li>
+              <Link
+                href='/absensi-pegawai'
+                className={`flex gap-4 py-2 px-4 rounded-lg hover:bg-white/75 hover:text-black cursor-pointer ${
+                  pathname === "/absensi-pegawai"
+                    ? "bg-white/75 text-black"
+                    : ""
+                }`}>
+                <Grid2X2Plus size={20} />
+                <span>Absensi Pegawai</span>
+              </Link>
             </li>
             <hr className='text-gray-500 my-2' />
             <li className='flex gap-4 py-2 px-4 rounded-lg hover:bg-blue-600 cursor-pointer'>

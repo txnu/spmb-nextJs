@@ -2,21 +2,22 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useNilai } from "@/presentation/hooks/useNilai";
-import { nilaiColumns } from "@/presentation/layouts/table/columns/nilai.column";
+import { useAbsensiPegawai } from "@/presentation/hooks/useAbsensiPegawai";
+import { absensiPegawaiColumns } from "@/presentation/layouts/table/columns/absensi_pegawai.column";
 import { DataTable } from "@/presentation/layouts/table/Table";
 import { Printer } from "lucide-react";
 import Link from "next/link";
 
-export default function NilaiPage() {
-  const { nilai } = useNilai();
+export default function PegawaiPage() {
+  const { absensiPegawai } = useAbsensiPegawai();
   return (
     <div className='flex overflow-auto w-full'>
       {" "}
       <DataTable
-        columns={nilaiColumns}
-        data={nilai}
+        columns={absensiPegawaiColumns}
+        data={absensiPegawai}
         pageSize={12}
+        rowIdKey='id'
         headerAction={
           <>
             <Link href='/siswa/tambah'>

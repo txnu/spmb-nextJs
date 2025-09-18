@@ -12,9 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { AbsensiEntity } from "@/domain/entities/absensi.entity";
+import { AbsensiPegawaiEntity } from "@/domain/entities/absensi_pegawai.entity";
 
-export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
+export const absensiPegawaiColumns: ColumnDef<AbsensiPegawaiEntity>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -54,15 +54,15 @@ export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
     ),
   },
   {
-    accessorKey: "siswa",
-    accessorFn: (row) => row.siswa[0]?.nama_siswa ?? "",
+    accessorKey: "pegawai",
+    accessorFn: (row) => row.pegawai[0]?.nama_pegawai ?? "",
     header: ({ column }) => {
       return (
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className='flex items-start justify-start px-0'>
-          Nama Siswa
+          Nama Pegawai
           <ArrowUpDown />
         </Button>
       );
@@ -72,35 +72,112 @@ export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
     },
   },
   {
-    accessorKey: "pelajaran",
-    accessorFn: (row) => row.pelajaran[0]?.mata_pelajaran ?? "",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant='ghost'
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Pelajaran
-          <ArrowUpDown />
-        </Button>
-      );
-    },
-    cell: ({ getValue }) => {
-      return <div className=''>{getValue<string>()}</div>;
-    },
-  },
-  {
-    accessorKey: "waktu",
-    header: "Waktu",
+    accessorKey: "tanggal",
+    header: "Tanggal",
     cell: ({ row }) => {
-      const raw = row.getValue("waktu") as string;
+      const raw = row.getValue("tanggal") as string;
       const date = new Date(raw);
 
       const formatted = date.toLocaleString("id-ID", {
-        year: "numeric",
-        month: "2-digit",
         day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+
+      return <div className='capitalize'>{formatted}</div>;
+    },
+  },
+  {
+    accessorKey: "waktu_masuk",
+    header: "Waktu Masuk",
+    cell: ({ row }) => {
+      const raw = row.getValue("waktu_masuk") as string;
+      const date = new Date(raw);
+
+      const formatted = date.toLocaleString("id-ID", {
         hour: "2-digit",
         minute: "2-digit",
+        second: "2-digit",
+      });
+
+      return <div className='capitalize'>{formatted}</div>;
+    },
+  },
+  {
+    accessorKey: "waktu_keluar",
+    header: "Waktu Keluar",
+    cell: ({ row }) => {
+      const raw = row.getValue("waktu_keluar") as string;
+      const date = new Date(raw);
+
+      const formatted = date.toLocaleString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+
+      return <div className='capitalize'>{formatted}</div>;
+    },
+  },
+  {
+    accessorKey: "status_absen",
+    header: "Status absen",
+    accessorFn: (row) => row.status_absen ?? "",
+    cell: ({ getValue }) => {
+      return <div className=''>{getValue<string>()}</div>;
+    },
+  },
+  {
+    accessorKey: "keterlambatan",
+    header: "Keterlambatan",
+    accessorFn: (row) => row.keterlambatan ?? "",
+    cell: ({ getValue }) => {
+      return <div className=''>{getValue<string>()}</div>;
+    },
+  },
+  {
+    accessorKey: "lembur",
+    header: "Lembur",
+    accessorFn: (row) => row.lembur ?? "",
+    cell: ({ getValue }) => {
+      return <div className=''>{getValue<string>()}</div>;
+    },
+  },
+  {
+    accessorKey: "durasi_kerja",
+    header: "Durasi kerja",
+    accessorFn: (row) => row.durasi_kerja ?? "",
+    cell: ({ getValue }) => {
+      return <div className=''>{getValue<string>()}</div>;
+    },
+  },
+  {
+    accessorKey: "approved_by",
+    header: "Disetujui oleh",
+    accessorFn: (row) => row.approved_by ?? "",
+    cell: ({ getValue }) => {
+      return <div className=''>{getValue<string>()}</div>;
+    },
+  },
+  {
+    accessorKey: "approved_status",
+    header: "Status persetujuan",
+    accessorFn: (row) => row.approved_status ?? "",
+    cell: ({ getValue }) => {
+      return <div className=''>{getValue<string>()}</div>;
+    },
+  },
+  {
+    accessorKey: "approved_date",
+    header: "Tanggal persetujuan",
+    cell: ({ row }) => {
+      const raw = row.getValue("approved_date") as string;
+      const date = new Date(raw);
+
+      const formatted = date.toLocaleString("id-ID", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "2-digit",
       });
 
       return <div className='capitalize'>{formatted}</div>;

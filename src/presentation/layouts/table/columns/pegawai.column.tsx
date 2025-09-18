@@ -12,9 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { AbsensiEntity } from "@/domain/entities/absensi.entity";
+import { PegawaiEntity } from "@/domain/entities/pegawai.entity";
 
-export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
+export const pegawaiColumns: ColumnDef<PegawaiEntity>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -38,79 +38,114 @@ export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: "nip",
     header: ({ column }) => {
       return (
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          ID Absensi
+          NIP
           <ArrowUpDown />
         </Button>
       );
     },
     cell: ({ row }) => (
-      <div className='uppercase font-bold'>{row.getValue("id")}</div>
+      <div className='uppercase font-bold'>{row.getValue("nip")}</div>
     ),
   },
   {
-    accessorKey: "siswa",
-    accessorFn: (row) => row.siswa[0]?.nama_siswa ?? "",
+    accessorKey: "nama_pegawai",
     header: ({ column }) => {
       return (
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className='flex items-start justify-start px-0'>
-          Nama Siswa
+          Nama Pegawai
           <ArrowUpDown />
         </Button>
       );
     },
-    cell: ({ getValue }) => {
-      return <div className=''>{getValue<string>()}</div>;
+    cell: ({ row }) => {
+      return <div className=''>{row.getValue("nama_pegawai")}</div>;
     },
   },
   {
-    accessorKey: "pelajaran",
-    accessorFn: (row) => row.pelajaran[0]?.mata_pelajaran ?? "",
+    accessorKey: "nilai",
+    header: "Nilai",
+    cell: ({ row }) => (
+      <div className='capitalize'>{row.getValue("nilai")}</div>
+    ),
+  },
+  {
+    accessorKey: "jenis_kelamin",
     header: ({ column }) => {
       return (
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Pelajaran
+          Jenis Kelamin
           <ArrowUpDown />
         </Button>
       );
     },
-    cell: ({ getValue }) => {
-      return <div className=''>{getValue<string>()}</div>;
+    cell: ({ row }) => {
+      return <div className=''>{row.getValue("jenis_kelamin")}</div>;
     },
   },
   {
-    accessorKey: "waktu",
-    header: "Waktu",
+    accessorKey: "no_hp",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Nomor Hp
+          <ArrowUpDown />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
-      const raw = row.getValue("waktu") as string;
-      const date = new Date(raw);
-
-      const formatted = date.toLocaleString("id-ID", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-
-      return <div className='capitalize'>{formatted}</div>;
+      return <div className=''>{row.getValue("no_hp")}</div>;
+    },
+  },
+  {
+    accessorKey: "ttl",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Tempat / tanggal lahir
+          <ArrowUpDown />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div className=''>{row.getValue("ttl")}</div>;
+    },
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Status
+          <ArrowUpDown />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div className=''>{row.getValue("status")}</div>;
     },
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const absensi = row.original;
+      const pegawai = row.original;
 
       return (
         <div className='whitespace-nowrap'>
@@ -126,7 +161,7 @@ export const absensiColumns: ColumnDef<AbsensiEntity>[] = [
             <DropdownMenuContent align='end'>
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(absensi.id)}>
+                onClick={() => navigator.clipboard.writeText(pegawai.nip)}>
                 Salin ID Absensi
               </DropdownMenuItem>
               <DropdownMenuSeparator />

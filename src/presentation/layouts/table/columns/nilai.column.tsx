@@ -12,9 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { SiswaEntity } from "@/domain/entities/siswa.entity";
-import { PelajaranEntity } from "@/domain/entities/pelajaran.entity";
-import { KelasEntity } from "@/domain/entities/kelas.entity";
 import { NilaiEntity } from "@/domain/entities/nilai.entity";
 
 export const nilaiColumns: ColumnDef<NilaiEntity>[] = [
