@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { useAbsensi } from "@/presentation/hooks/useAbsensi";
 import { absensiColumns } from "@/presentation/layouts/table/columns/absensi.column";
-import { DataTable } from "@/presentation/layouts/table/Table";
+import { DataTable } from "@/presentation/layouts/table/DataTable";
 import { Printer } from "lucide-react";
 import Link from "next/link";
 

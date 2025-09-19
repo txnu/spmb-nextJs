@@ -7,5 +7,5 @@ export default function PublicLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className='min-h-screen flex items-center jus'>{children}</div>;
+  return <div className='min-h-screen flex items-center'>{children}</div>;
 }

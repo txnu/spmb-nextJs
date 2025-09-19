@@ -15,7 +15,7 @@ export default function ProtectedLayout({
   return (
     <AnimatePresence>
       <SidebarProvider>
-        <div className='flex min-h-screen'>
+        <div className='flex h-screen'>
           <Sidebar />
           <main className='flex flex-col flex-1 min-w-0'>
             <Header />

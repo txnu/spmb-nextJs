@@ -3,15 +3,43 @@
 @import "tailwindcss";
 
 @import "tw-animate-css";
+@import "tailwind-scrollbar-hide/v4";
 
 /*---break--- */
 
 @custom-variant dark (&:is(.dark *));
 
+.scrollbar-thumb-only {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+.scrollbar-thumb-only::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thumb-only::-webkit-scrollbar-track {
+  background: transparent; /* Hilangkan background track */
+}
+
+.scrollbar-thumb-only::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3); /* Hanya thumb yang terlihat */
+  border-radius: 3px;
+}
+
+.scrollbar-thumb-only::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5); /* Hover effect */
+}
+
+.scrollbar-thumb-only::-webkit-scrollbar-corner {
+  background: transparent; /* Hilangkan corner background */
+}
+
 /*---break--- */
 
 @theme inline {
-
   --radius-sm: calc(var(--radius) - 4px);
 
   --radius-md: calc(var(--radius) - 2px);
@@ -86,7 +114,6 @@
 /*---break--- */
 
 :root {
-
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
@@ -155,7 +182,6 @@
 /*---break--- */
 
 .dark {
-
   --background: oklch(0.145 0 0);
 
   --foreground: oklch(0.985 0 0);

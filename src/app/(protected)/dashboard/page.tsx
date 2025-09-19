@@ -1,6 +1,7 @@
 /** @format */
 "use client";
 
+import { usePegawai } from "@/presentation/hooks/usePegawai";
 import { useSiswa } from "@/presentation/hooks/useSiswa";
 import { ChartAreaInteractive } from "@/presentation/layouts/ChartAreaInteractive";
 import { ChartLineInteractive } from "@/presentation/layouts/ChartLineInteractive";
@@ -8,6 +9,7 @@ import { ChartPieDonutText } from "@/presentation/layouts/PieChart";
 import { DollarSign, User, Users, Wallet } from "lucide-react";
 
 export default function Home() {
+  const { pegawai } = usePegawai();
   const { siswa } = useSiswa();
   return (
     <div className='flex flex-col w-full px-4'>
@@ -19,7 +21,9 @@ export default function Home() {
             <div className='flex flex-row items-center justify-between px-4 py-6'>
               <div>
                 <h5 className='font-bold text-sm uppercase'>Total pegawai</h5>
-                <p className='text-xl text-gray-400 font-bold'>85</p>
+                <p className='text-xl text-gray-400 font-bold'>
+                  {pegawai.length}
+                </p>
               </div>
               <div className='p-2 border-2 border-gray-300 rounded-lg'>
                 <Users />

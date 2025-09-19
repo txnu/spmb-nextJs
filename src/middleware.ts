@@ -14,5 +14,14 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/dashboard/:path*", "/spmb/:path*", "/siswa/:path*"],
+  matcher: [
+    "/",
+    "/dashboard/:path*",
+    "/spmb/:path*",
+    "/siswa/:path*",
+    "/menu-siswa/:path*",
+    "/pegawai/:path*",
+    "/menu-pegawai/:path*",
+    "/spp-pembayara/:path*",
+  ],
 };

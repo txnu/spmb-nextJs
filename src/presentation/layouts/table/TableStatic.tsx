@@ -1,8 +1,19 @@
 /** @format */
 
+/** @format */
 "use client";
 
 import * as React from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -17,26 +28,8 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 import { rankItem } from "@tanstack/match-sorter-utils";
-import { ChevronDown } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-interface DataTableProps<TData> {
+interface TableStaticProps<TData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   pageSize?: number;
@@ -44,13 +37,13 @@ interface DataTableProps<TData> {
   headerAction?: React.ReactNode;
 }
 
-export function DataTable<TData>({
+export function TableStatic<TData>({
   columns,
   data,
   pageSize,
   rowIdKey = "id" as keyof TData,
   headerAction,
-}: DataTableProps<TData>) {
+}: TableStaticProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const [globalFilter, setGlobalFilter] = React.useState("");
@@ -62,7 +55,6 @@ export function DataTable<TData>({
   const [rowSelection, setRowSelection] = React.useState({});
 
   const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-    // RankItem biar pencarian lebih fleksibel
     const itemRank = rankItem(row.getValue(columnId), value);
     addMeta({ itemRank });
     return itemRank.passed;
@@ -110,40 +102,10 @@ export function DataTable<TData>({
             onChange={(event) => setGlobalFilter(event.target.value)}
             className='max-w-sm'
           />
-          <div className='flex items-center gap-2'>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant='outline'
-                  className='ml-auto'>
-                  Columns <ChevronDown />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align='end'>
-                {table
-                  .getAllColumns()
-                  .filter((column) => column.getCanHide())
-                  .map((column) => {
-                    return (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className='capitalize'
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
-                        }>
-                        {column.id}
-                      </DropdownMenuCheckboxItem>
-                    );
-                  })}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {headerAction}
-          </div>
         </div>
+        <div className='flex items-center gap-2'>{headerAction}</div>
         <div className='overflow-auto w-full min-w-full rounded-md border'>
-          <Table className='w-full'>
+          <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
@@ -151,7 +113,7 @@ export function DataTable<TData>({
                     return (
                       <TableHead
                         key={header.id}
-                        className=''>
+                        className=' justify-start pl-4'>
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -173,7 +135,7 @@ export function DataTable<TData>({
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
                         key={cell.id}
-                        className='px-4'>
+                        className='pl-4'>
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -186,7 +148,7 @@ export function DataTable<TData>({
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}
-                    className='h-24 text-center'>
+                    className='h-24 text-center pl-4'>
                     No results.
                   </TableCell>
                 </TableRow>

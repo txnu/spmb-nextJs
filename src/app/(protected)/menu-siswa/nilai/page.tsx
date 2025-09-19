@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { useNilai } from "@/presentation/hooks/useNilai";
 import { nilaiColumns } from "@/presentation/layouts/table/columns/nilai.column";
-import { DataTable } from "@/presentation/layouts/table/Table";
+import { DataTable } from "@/presentation/layouts/table/DataTable";
 import { Printer } from "lucide-react";
 import Link from "next/link";
 

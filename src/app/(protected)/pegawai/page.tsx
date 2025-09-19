@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { usePegawai } from "@/presentation/hooks/usePegawai";
 import { pegawaiColumns } from "@/presentation/layouts/table/columns/pegawai.column";
-import { DataTable } from "@/presentation/layouts/table/Table";
+import { DataTable } from "@/presentation/layouts/table/DataTable";
 import { Printer } from "lucide-react";
 import Link from "next/link";
 

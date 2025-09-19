@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { useAbsensiPegawai } from "@/presentation/hooks/useAbsensiPegawai";
 import { absensiPegawaiColumns } from "@/presentation/layouts/table/columns/absensi_pegawai.column";
-import { DataTable } from "@/presentation/layouts/table/Table";
+import { DataTable } from "@/presentation/layouts/table/DataTable";
 import { Printer } from "lucide-react";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ export default function PegawaiPage() {
         rowIdKey='id'
         headerAction={
           <>
-            <Link href='/siswa/tambah'>
+            <Link href='/pegawai'>
               <Button className='bg-green-600 hover:bg-green-700 cursor-pointer'>
                 <Printer
                   height={30}
